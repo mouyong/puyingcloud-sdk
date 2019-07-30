@@ -10,9 +10,10 @@
 
 namespace Yan\PuyingCloudSdk\Core;
 
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\Exception\BadResponseException;
 use Hanson\Foundation\AbstractAPI;
+use Hanson\Foundation\Log;
+use Psr\Http\Message\RequestInterface;
 use Yan\PuyingCloudSdk\Exceptions\AccessTokenExpireException;
 use Yan\PuyingCloudSdk\Exceptions\ApiException;
 use Yan\PuyingCloudSdk\Exceptions\InvalidCustomHeaderException;
@@ -52,9 +53,21 @@ class Api extends AbstractAPI
 
         $this->http->addMiddleware($this->headerMiddleware([
             'Content-Type' => 'application/json',
-            'Access-Token' => $this->getRequestToken(),
             'Action' => $this->getAction(),
         ]));
+
+        $this->http->addMiddleware($this->accessTokenHeader('Access-Token'));
+    }
+
+    public function accessTokenHeader($headerKey)
+    {
+        return function (callable $handler) use ($headerKey) {
+            return function (RequestInterface $request, array $options) use ($handler, $headerKey) {
+                $request = $request->withHeader($headerKey, $this->getRequestToken());
+
+                return $handler($request, $options);
+            };
+        };
     }
 
     public function getRequestToken()
@@ -86,9 +99,7 @@ class Api extends AbstractAPI
     {
         try {
             $response = $this->getHttp()->json(self::API_URL, $data);
-        } catch (ClientException $e) { // 获取接口返回实际响应
-            $response = $e->getResponse();
-        } catch (ServerException $e) {
+        } catch (BadResponseException $e) { // 获取接口返回实际响应
             $response = $e->getResponse();
         }
 
@@ -96,9 +107,11 @@ class Api extends AbstractAPI
             $response = $this->parseJSON($response);
         } catch (AccessTokenExpireException $e) { // token 过期
             $action = $this->getAction();
+
             $this->getAccessToken()->getToken(true);
 
             $response = $this->setAction($action)->getHttp()->json(self::API_URL, $data);
+            $response = $this->parseJSON($response);
         }
 
         return $response;
@@ -109,6 +122,10 @@ class Api extends AbstractAPI
         $result = json_decode(strval($response->getBody()), true);
 
         $this->checkAndThrow($result);
+
+        if ($this->getAction() === 'login') {
+            return $result;
+        }
 
         return $result['data'] ?? [];
     }

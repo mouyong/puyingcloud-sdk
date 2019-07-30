@@ -11,6 +11,7 @@
 namespace Yan\PuyingCloudSdk\Core;
 
 use Hanson\Foundation\AbstractAccessToken;
+use Yan\PuyingCloudSdk\Exceptions\ApiException;
 
 class AccessToken extends AbstractAccessToken
 {
@@ -37,6 +38,10 @@ class AccessToken extends AbstractAccessToken
      */
     public function checkTokenResponse($result)
     {
+        if (empty($result[$this->tokenJsonKey])) {
+            throw new ApiException("获取 token 失败");
+        }
+
         return $result;
     }
 
@@ -47,7 +52,7 @@ class AccessToken extends AbstractAccessToken
 
     public function getTokenFromServer()
     {
-        $response = (new Api($this))->json([
+        $response = (new Api($this))->setAction($this->getAction())->json([
             'phone' => $this->getAppId(),
             'password' => $this->getSecret(),
         ]);
