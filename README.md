@@ -11,7 +11,35 @@ $ composer require mouyong/puyingcloud-sdk -vvv
 
 ## Usage
 
-TODO
+```
+use Yan\PuyingCloudSdk\Kernel\ContentFormatter;
+
+require __DIR__.'/vendor/autoload.php';
+
+$sdk = new \Yan\PuyingCloudSdk\PuyingCloudSdk([
+    'debug' => true, // 必须有，不然 foundation 72 行会报 Notice 未定义索引 debug 错误
+    'phone' => 'your-phone-number',
+    'password' => 'your-password',
+
+    'log' => [
+        'file' => __DIR__.'/runtime.log',
+        'level' => 'debug',
+        'permission' => 0777,
+    ],
+
+    'cache' => new \Doctrine\Common\Cache\FilesystemCache(__DIR__.'/cache/'),
+]);
+
+
+try {
+    echo(ContentFormatter::title('普赢云测试后台'));
+    
+    echo json_encode($sdk->printer->list());
+} catch (\Exception $e) {
+    echo $e->getMessage();
+}
+
+```
 
 ## Contributing
 
