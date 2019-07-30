@@ -1,0 +1,19 @@
+{
+    "name": "mouyong/puyingcloud-sdk",
+    "description": "puyingcloud sdk",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "牟勇",
+            "email": "my24251325@gmail.com"
+        }
+    ],
+    "require": {
+        "hanson/foundation-sdk": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yan\\PuyingCloudSdk\\": "src"
+        }
+    }
+}
