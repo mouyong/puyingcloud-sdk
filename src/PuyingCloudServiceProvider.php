@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of the mouyong/puyingcloud-sdk.
+ *
+ * (c) 牟勇 <my24251325@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Yan\PuyingCloudSdk;
 
 class PuyingCloudServiceProvider extends \Illuminate\Support\ServiceProvider
@@ -8,8 +16,6 @@ class PuyingCloudServiceProvider extends \Illuminate\Support\ServiceProvider
 
     /**
      * 在注册后进行服务的启动。
-     *
-     * @return void
      */
     public function boot()
     {
