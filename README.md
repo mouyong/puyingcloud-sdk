@@ -3,7 +3,8 @@
 <p align="center"> 普赢云 sdk.</p>
 
 <p align="center">
-<a href="https://github.styleci.io/repos/199642318"><img src="https://github.styleci.io/repos/199642318/shield?branch=master" alt="StyleCI"></a>
+<a href="https://travis-ci.org/mouyong/puyingcloud-sdk"><img src="https://travis-ci.org/mouyong/puyingcloud-sdk.svg" alt="TravisCI"></a>
+<a href="https://github.styleci.io/repos/199642318"><img src="https://github.styleci.io/repos/199642318/shield" alt="StyleCI"></a>
 </p>
 
 ## Installing
