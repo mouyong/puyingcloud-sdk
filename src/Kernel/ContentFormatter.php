@@ -203,6 +203,7 @@ abstract class ContentFormatter
      * 将其他排版指令设置为出厂状态
      *
      * @param $content
+     *
      * @return string
      */
     protected function init($content)
@@ -211,9 +212,10 @@ abstract class ContentFormatter
     }
 
     /**
-     * 标题
+     * 标题.
      *
      * @param string $title
+     *
      * @return string
      */
     protected function title($title)
@@ -222,10 +224,11 @@ abstract class ContentFormatter
     }
 
     /**
-     * 静态调用
+     * 静态调用.
      *
      * @param string $method
      * @param $args
+     *
      * @return mixed
      */
     public static function __callStatic($method, $args)

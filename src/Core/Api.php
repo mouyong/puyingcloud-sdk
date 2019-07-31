@@ -12,7 +12,6 @@ namespace Yan\PuyingCloudSdk\Core;
 
 use GuzzleHttp\Exception\BadResponseException;
 use Hanson\Foundation\AbstractAPI;
-use Hanson\Foundation\Log;
 use Psr\Http\Message\RequestInterface;
 use Yan\PuyingCloudSdk\Exceptions\AccessTokenExpireException;
 use Yan\PuyingCloudSdk\Exceptions\ApiException;
@@ -123,7 +122,7 @@ class Api extends AbstractAPI
 
         $this->checkAndThrow($result);
 
-        if ($this->getAction() === 'login') {
+        if ('login' === $this->getAction()) {
             return $result;
         }
 

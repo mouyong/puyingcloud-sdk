@@ -11,7 +11,6 @@
 namespace Yan\PuyingCloudSdk\Kernel;
 
 use InvalidArgumentException;
-use Yan\PuyingCloudSdk\Contracts\Formatter;
 use Yan\PuyingCloudSdk\Core\Api;
 
 class PrinterManage extends Api

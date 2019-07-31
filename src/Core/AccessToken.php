@@ -39,7 +39,7 @@ class AccessToken extends AbstractAccessToken
     public function checkTokenResponse($result)
     {
         if (empty($result[$this->tokenJsonKey])) {
-            throw new ApiException("获取 token 失败");
+            throw new ApiException('获取 token 失败');
         }
 
         return $result;
