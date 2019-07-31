@@ -3,7 +3,7 @@
 <p align="center"> 普赢云 sdk.</p>
 
 <p align="center">
-![StyleCI build status](https://github.styleci.io/repos/199642318/shield) 
+<a href="https://github.styleci.io/repos/199642318"><img src="https://github.styleci.io/repos/199642318/shield?branch=master" alt="StyleCI"></a>
 </p>
 
 ## Installing
