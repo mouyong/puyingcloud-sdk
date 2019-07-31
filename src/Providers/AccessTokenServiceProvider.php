@@ -10,24 +10,24 @@
 
 namespace Yan\PuyingCloudSdk\Providers;
 
-use Hanson\Foundation\Foundation;
-use InvalidArgumentException;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Yan\PuyingCloudSdk\Core\AccessToken;
+use Yan\PuyingCloudSdk\Exceptions\InvalidConfigException;
+use Yan\PuyingCloudSdk\PuyingCloudSdk;
 
 class AccessTokenServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $pimple)
     {
-        $pimple['access_token'] = function (Foundation $pimple) {
+        $pimple['access_token'] = function (PuyingCloudSdk $pimple) {
             $config = $pimple->getConfig();
 
             if (empty($config['phone']) || empty($config['password'])) {
-                throw new InvalidArgumentException('请检查配置文件中是否存在 phone 与 password');
+                throw new InvalidConfigException('请检查配置文件中是否存在 phone 与 password');
             }
 
-            return new AccessToken($pimple->getConfig('phone'), $pimple->getConfig('password'));
+            return new AccessToken($pimple->getConfig('phone'), $pimple->getConfig('password'), $pimple);
         };
     }
 }

@@ -12,9 +12,12 @@ namespace Yan\PuyingCloudSdk\Core;
 
 use Hanson\Foundation\AbstractAccessToken;
 use Yan\PuyingCloudSdk\Exceptions\ApiException;
+use Yan\PuyingCloudSdk\PuyingCloudSdk;
 
 class AccessToken extends AbstractAccessToken
 {
+    protected $app;
+
     protected $prefix = 'printer.token.';
 
     protected $action = 'login';
@@ -23,10 +26,11 @@ class AccessToken extends AbstractAccessToken
 
     protected $expiresJsonKey = 'expire_in';
 
-    public function __construct($phone, $password)
+    public function __construct($phone, $password, PuyingCloudSdk $app)
     {
         $this->appId = $phone;
         $this->secret = $password;
+        $this->app = $app;
     }
 
     /**
@@ -52,7 +56,7 @@ class AccessToken extends AbstractAccessToken
 
     public function getTokenFromServer()
     {
-        $api = new Api($this);
+        $api = new Api($this->app);
 
         $response = $api->request($this->getAction(), [
             'phone' => $this->getAppId(),

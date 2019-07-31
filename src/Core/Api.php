@@ -12,12 +12,12 @@ namespace Yan\PuyingCloudSdk\Core;
 
 use GuzzleHttp\Exception\BadResponseException;
 use Hanson\Foundation\AbstractAPI;
-use Hanson\Foundation\Log;
 use Psr\Http\Message\RequestInterface;
 use Yan\PuyingCloudSdk\Exceptions\AccessTokenExpireException;
 use Yan\PuyingCloudSdk\Exceptions\ApiException;
 use Yan\PuyingCloudSdk\Exceptions\InvalidCustomHeaderException;
 use Yan\PuyingCloudSdk\Exceptions\InvalidResponseException;
+use Yan\PuyingCloudSdk\PuyingCloudSdk;
 
 class Api extends AbstractAPI
 {
@@ -28,9 +28,9 @@ class Api extends AbstractAPI
 
     protected $action;
 
-    public function __construct(AccessToken $accessToken)
+    public function __construct(PuyingCloudSdk $app)
     {
-        $this->setAccessToken($accessToken);
+        $this->setAccessToken($app['access_token']);
     }
 
     public function setAccessToken(AccessToken $accessToken)

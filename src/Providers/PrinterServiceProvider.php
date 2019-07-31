@@ -10,17 +10,17 @@
 
 namespace Yan\PuyingCloudSdk\Providers;
 
-use Hanson\Foundation\Foundation;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Yan\PuyingCloudSdk\Kernel\PrinterManage;
+use Yan\PuyingCloudSdk\PuyingCloudSdk;
 
 class PrinterServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $pimple)
     {
-        $pimple['printer'] = function (Foundation $pimple) {
-            return new PrinterManage($pimple['access_token']);
+        $pimple['printer'] = function (PuyingCloudSdk $pimple) {
+            return new PrinterManage($pimple);
         };
     }
 }
