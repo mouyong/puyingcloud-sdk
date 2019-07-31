@@ -2,6 +2,9 @@
 
 <p align="center"> 普赢云 sdk.</p>
 
+<p align="center">
+![StyleCI build status](https://github.styleci.io/repos/199642318/shield) 
+</p>
 
 ## Installing
 
