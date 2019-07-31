@@ -55,6 +55,8 @@ class Api extends AbstractAPI
         $this->setAccessToken(
             $this->app->access_token->changeUser($phone, $password)
         );
+
+        return $this;
     }
 
     public function middlewares()
