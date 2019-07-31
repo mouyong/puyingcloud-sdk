@@ -15,7 +15,7 @@ use Yan\PuyingCloudSdk\Core\Api;
 
 class PrinterManage extends Api
 {
-    public function list($offset = 0, $limit = 10, $query = [], $filter = [])
+    public function list($offset = 0, $limit = 10, $query = null, $filter = [])
     {
         return $this->request('printer_list', [
             'offset' => intval($offset),
@@ -80,7 +80,7 @@ class PrinterManage extends Api
         ]);
     }
 
-    public function getPrinterTaskList($offset = 0, $limit = 10, $query = [], $filter = [])
+    public function getPrinterTaskList($offset = 0, $limit = 10, $query = null, $filter = [])
     {
         return $this->request('task_list', [
             'offset' => intval($offset),
