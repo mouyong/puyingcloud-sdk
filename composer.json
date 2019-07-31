@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": ">=7.0",
-        "hanson/foundation-sdk": "^3.0",
+        "hanson/foundation-sdk": "^3.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.2",
