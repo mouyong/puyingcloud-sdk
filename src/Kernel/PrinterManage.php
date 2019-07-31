@@ -69,14 +69,14 @@ class PrinterManage extends Api
         return $this->request('remove_printer', $printersSns);
     }
 
-    public function createPrintTask($sn, $title, $content, $count = 1, $interval = 0)
+    public function createPrinterTask($printersSn, $title, $content, $count = 1, $interval = 0)
     {
         return $this->request('add_task', [
             'count' => $count,
             'interval' => $interval,
             'title' => $title,
             'content' => strval($content),
-            'sn' => $sn,
+            'sn' => $printersSn,
         ]);
     }
 
@@ -97,7 +97,7 @@ class PrinterManage extends Api
         ]);
     }
 
-    public function cancelWaitPrintTask($printersSn)
+    public function cancelWaitPrintTaskBySn($printersSn)
     {
         return $this->request('remove_task', [
             'sn' => strval($printersSn),
@@ -109,7 +109,7 @@ class PrinterManage extends Api
         return $this->request('device_state_statistics');
     }
 
-    public function setPrintName($printerSn, $name)
+    public function setPrinterNameBySn($printerSn, $name)
     {
         return $this->request('update_printer', [
             'sn' => strval($printerSn),
