@@ -23,7 +23,7 @@ abstract class ContentFormatter
     {
         $this->content = $content;
 
-        if ($this instanceof Formatter) {
+        if ($this instanceof Formatter || method_exists($this, 'format')) {
             $this->format();
         }
     }
