@@ -51,7 +51,7 @@ $order = [
 try {
     echo json_encode($sdk->printer->createPrintTask($sn, '测试打印', new TestFormatter($order)));
     
-    echo json_encode($sdk->printer->list());
+    echo json_encode($sdk->printer->getPrinterlist());
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

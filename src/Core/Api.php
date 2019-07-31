@@ -50,10 +50,10 @@ class Api extends AbstractAPI
         return $this->accessToken;
     }
 
-    public function changeUser($phone, $password)
+    public function setUser($phone, $password)
     {
         $this->setAccessToken(
-            $this->app->access_token->changeUser($phone, $password)
+            $this->app->access_token->getAccessTokenByUser($phone, $password)
         );
 
         return $this;

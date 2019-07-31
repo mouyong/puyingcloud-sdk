@@ -66,7 +66,7 @@ class AccessToken extends AbstractAccessToken
         return $api->parseJSON($response);
     }
 
-    public function changeUser($phone, $password)
+    public function getAccessTokenByUser($phone, $password)
     {
         return new static($phone, $password, $this->app);
     }
