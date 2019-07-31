@@ -9,11 +9,25 @@
         }
     ],
     "require": {
-        "hanson/foundation-sdk": "^3.0"
+        "hanson/foundation-sdk": "^3.0",
+        "phpunit/phpunit": "^8.2",
+        "mockery/mockery": "^1.2"
     },
     "autoload": {
         "psr-4": {
             "Yan\\PuyingCloudSdk\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Yan\\PuyinCloudSdk\\Test\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Yan\\PuyingCloudSdk\\PuyingCloudServiceProvider"
+            ]
         }
     }
 }
