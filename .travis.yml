@@ -5,9 +5,17 @@ php:
     - 7.1
     - 7.2
 
+env:
+    global:
+        - DEFAULT_COMPOSER_FLAGS="--no-interaction --no-ansi --no-progress --no-suggest"
+
 dist: xenial
 sudo: false
 
-install: travis_retry composer install --no-interaction --prefer-source
+before_install:
+    - composer self-update
+    - composer clear-cache
+
+install: travis_retry composer install $DEFAULT_COMPOSER_FLAGS
 
 script: vendor/bin/phpunit --verbose
