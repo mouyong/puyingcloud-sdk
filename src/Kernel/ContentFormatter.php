@@ -10,11 +10,33 @@
 
 namespace Yan\PuyingCloudSdk\Kernel;
 
+use Yan\PuyingCloudSdk\Contracts\Formatter;
 use Yan\PuyingCloudSdk\Exceptions\FormatException;
 
-class ContentFormatter
+abstract class ContentFormatter
 {
     protected $content;
+
+    protected $result;
+
+    public function __construct($content)
+    {
+        $this->content = $content;
+
+        if ($this instanceof Formatter) {
+            $this->format();
+        }
+    }
+
+    public function format()
+    {
+        $this->result = $this->content;
+    }
+
+    public function __toString()
+    {
+        return $this->result;
+    }
 
     /**
      * 添加换行标签.

@@ -30,9 +30,22 @@ $sdk = new \Yan\PuyingCloudSdk\PuyingCloudSdk([
     'cache' => new \Doctrine\Common\Cache\FilesystemCache(__DIR__.'/cache/'),
 ]);
 
+class TestFormatter extends ContentFormatter implements \Yan\PuyingCloudSdk\Contracts\Formatter {
+    public function format()
+    {
+        $title = $this->title($this->content['title']);
+
+        $this->result = $title;
+    }
+}
+
+$order = [
+    'title' => '123',
+    'desc' => '456',
+];
 
 try {
-    echo(ContentFormatter::title('普赢云测试后台'));
+    echo json_encode($sdk->printer->createPrintTask($sn, '测试打印', new TestFormatter($order)));
     
     echo json_encode($sdk->printer->list());
 } catch (\Exception $e) {
