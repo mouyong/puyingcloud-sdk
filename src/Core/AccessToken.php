@@ -52,11 +52,13 @@ class AccessToken extends AbstractAccessToken
 
     public function getTokenFromServer()
     {
-        $response = (new Api($this))->setAction($this->getAction())->json([
+        $api = new Api($this);
+
+        $response = $api->request($this->getAction(), [
             'phone' => $this->getAppId(),
             'password' => $this->getSecret(),
         ]);
 
-        return $response;
+        return $api->parseJSON($response);
     }
 }

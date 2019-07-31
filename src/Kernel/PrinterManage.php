@@ -17,7 +17,7 @@ class PrinterManage extends Api
 {
     public function list($offset = 0, $limit = 10, $query = [], $filter = [])
     {
-        return $this->setAction('printer_list')->json([
+        return $this->request('printer_list', [
             'offset' => intval($offset),
             'limit' => intval($limit),
             'query' => $query,
@@ -52,7 +52,7 @@ class PrinterManage extends Api
             $data[] = sprintf('%s#%s#%s', $printer['sn'], $printer['key'], $printer['name']);
         }
 
-        return $this->setAction('add_printer')->json([
+        return $this->request('add_printer', [
             'printers' => $data,
         ]);
     }
@@ -66,12 +66,12 @@ class PrinterManage extends Api
 
     public function remove($printersSns = [])
     {
-        return $this->setAction('remove_printer')->json($printersSns);
+        return $this->request('remove_printer', $printersSns);
     }
 
     public function createPrintTask($sn, $title, $content, $count = 1, $interval = 0)
     {
-        return $this->setAction('add_task')->json([
+        return $this->request('add_task', [
             'count' => $count,
             'interval' => $interval,
             'title' => $title,
@@ -82,7 +82,7 @@ class PrinterManage extends Api
 
     public function getPrinterTaskList($offset = 0, $limit = 10, $query = [], $filter = [])
     {
-        return $this->setAction('task_list')->json([
+        return $this->request('task_list', [
             'offset' => intval($offset),
             'limit' => intval($limit),
             'query' => $query,
@@ -92,26 +92,26 @@ class PrinterManage extends Api
 
     public function getPrinterTaskBySn($sn)
     {
-        return $this->setAction('get_task')->json([
+        return $this->request('get_task', [
             'sn' => strval($sn),
         ]);
     }
 
     public function cancelWaitPrintTask($printersSn)
     {
-        return $this->setAction('remove_task')->json([
+        return $this->request('remove_task', [
             'sn' => strval($printersSn),
         ]);
     }
 
     public function deviceStateStatistics()
     {
-        return $this->setAction('device_state_statistics')->json();
+        return $this->request('device_state_statistics');
     }
 
     public function setPrintName($printerSn, $name)
     {
-        return $this->setAction('update_printer')->json([
+        return $this->request('update_printer', [
             'sn' => strval($printerSn),
             'name' => $name,
         ]);
@@ -119,7 +119,7 @@ class PrinterManage extends Api
 
     public function printAmountStatistics($type = 'today')
     {
-        return $this->setAction('print_amount_statistics')->json([
+        return $this->request('print_amount_statistics', [
             'type' => $type,
         ]);
     }

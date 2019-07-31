@@ -12,6 +12,7 @@ namespace Yan\PuyingCloudSdk\Core;
 
 use GuzzleHttp\Exception\BadResponseException;
 use Hanson\Foundation\AbstractAPI;
+use Hanson\Foundation\Log;
 use Psr\Http\Message\RequestInterface;
 use Yan\PuyingCloudSdk\Exceptions\AccessTokenExpireException;
 use Yan\PuyingCloudSdk\Exceptions\ApiException;
@@ -94,23 +95,22 @@ class Api extends AbstractAPI
         return $this->action;
     }
 
-    public function json($data = [])
+    public function request($action, $data = [])
     {
         try {
-            $response = $this->getHttp()->json(self::API_URL, $data);
+            $response = $this->setAction($action)->getHttp()->json(self::API_URL, $data);
         } catch (BadResponseException $e) { // 获取接口返回实际响应
             $response = $e->getResponse();
         }
 
         try {
-            $response = $this->parseJSON($response);
+            $this->parseJSON($response);
         } catch (AccessTokenExpireException $e) { // token 过期
-            $action = $this->getAction();
-
             $this->getAccessToken()->getToken(true);
 
-            $response = $this->setAction($action)->getHttp()->json(self::API_URL, $data);
-            $response = $this->parseJSON($response);
+            $response = $this->parseJSON(
+                $response = $this->getHttp()->json(self::API_URL, $data)
+            );
         }
 
         return $response;
@@ -137,7 +137,7 @@ class Api extends AbstractAPI
 
         if (isset($result['status']) && 200 !== $result['status']) {
             if (AccessTokenExpireException::EXPIRE_CODE == $result['status']) { // token 过期，需要重新登录
-                throw new AccessTokenExpireException();
+                throw new AccessTokenExpireException($result['msg'], $result['status']);
             }
 
             throw new ApiException($result['msg'], $result['status']);
