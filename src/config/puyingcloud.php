@@ -9,7 +9,7 @@
  */
 
 return [
-    'debug' => true, // 必须有，不然 foundation 72 行会报 Notice 未定义索引 debug 错误
+    'debug' => env('PUYINGCLOUD_DEBUG', false), // 必须有，不然 foundation 72 行会报 Notice 未定义索引 debug 错误
     'phone' => env('PUYINGCLOUD_PHONE', 'your-phone-number'),
     'password' => env('PUYINGCLOUD_PASSWORD', 'your-password'),
 
