@@ -132,7 +132,10 @@ class Api extends AbstractAPI
 
     public function parseJSON($response)
     {
-        $result = json_decode(strval($response->getBody()), true);
+        $result = $response;
+        if (is_object($response)) {
+            $result = json_decode(strval($response->getBody()), true);
+        }
 
         $this->checkAndThrow($result);
 
