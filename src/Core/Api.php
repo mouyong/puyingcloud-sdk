@@ -23,6 +23,9 @@ class Api extends AbstractAPI
 {
     const API_URL = 'http://puyingcloud.cn/v2/printer/open/index.html';
 
+    /** @var PuyingCloudSdk */
+    protected $app;
+
     /** @var AccessToken */
     protected $accessToken;
 
@@ -30,6 +33,8 @@ class Api extends AbstractAPI
 
     public function __construct(PuyingCloudSdk $app)
     {
+        $this->app = $app;
+
         $this->setAccessToken($app['access_token']);
     }
 
@@ -43,6 +48,13 @@ class Api extends AbstractAPI
     public function getAccessToken()
     {
         return $this->accessToken;
+    }
+
+    public function changeUser($phone, $password)
+    {
+        $this->setAccessToken(
+            $this->app->access_token->changeUser($phone, $password)
+        );
     }
 
     public function middlewares()
