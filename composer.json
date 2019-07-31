@@ -10,8 +10,8 @@
     ],
     "require": {
         "hanson/foundation-sdk": "^3.0",
-        "phpunit/phpunit": "^8.2",
-        "mockery/mockery": "^1.2"
+        "mockery/mockery": "^1.2",
+        "phpunit/phpunit": "~5"
     },
     "autoload": {
         "psr-4": {
