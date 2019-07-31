@@ -104,7 +104,7 @@ class Api extends AbstractAPI
         }
 
         try {
-            $this->parseJSON($response);
+            $response = $this->parseJSON($response);
         } catch (AccessTokenExpireException $e) { // token 过期
             $this->getAccessToken()->getToken(true);
 
