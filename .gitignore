@@ -9,3 +9,5 @@ composer.lock
 PUYING_DEMO.php
 index.php
 *.log
+yarn.lock
+node_modules/

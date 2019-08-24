@@ -77,10 +77,10 @@ abstract class ContentFormatter
      *
      * @return string
      */
-    protected function logo($content, $endOfLine = true)
+    protected function logo($content, $order = 1, $endOfLine = true)
     {
         if ($endOfLine) {
-            return sprintf('%s%s', $content, $this->c('<LOGOn>'));
+            return sprintf('%s%s', $content, $this->c(sprintf('<LOGO%s>', $order)));
         }
 
         return sprintf('%s%s', $this->c('<LOGOn>'), $content);
