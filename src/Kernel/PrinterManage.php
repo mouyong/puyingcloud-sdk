@@ -26,9 +26,10 @@ class PrinterManage extends Api
     }
 
     /**
-     * 添加单台打印机
+     * 添加单台打印机.
      *
      * @param array $printer = ['sn' => $sn, 'key' => $key, 'alias' => $alias]
+     *
      * @return array|mixed|null|\Psr\Http\Message\ResponseInterface
      */
     public function addOne(array $printer)
@@ -41,13 +42,14 @@ class PrinterManage extends Api
     }
 
     /**
-     * 批量添加打印机
+     * 批量添加打印机.
      *
      * @param array $printers = [
-     *      ['sn' => $sn, 'key' => $key, 'alias' => $alias],
-     *      ['sn' => $sn, 'key' => $key, 'alias' => $alias],
-     *      ...
-     * ]
+     *                        ['sn' => $sn, 'key' => $key, 'alias' => $alias],
+     *                        ['sn' => $sn, 'key' => $key, 'alias' => $alias],
+     *                        ...
+     *                        ]
+     *
      * @return array|mixed|null|\Psr\Http\Message\ResponseInterface
      */
     public function add($printers = [])
