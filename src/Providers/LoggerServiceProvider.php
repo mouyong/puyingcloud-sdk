@@ -13,7 +13,6 @@ namespace Yan\PuyingCloudSdk\Providers;
 use Hanson\Foundation\Log;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Yan\PuyingCloudSdk\Kernel\PrinterManage;
 use Yan\PuyingCloudSdk\PuyingCloudSdk;
 
 class LoggerServiceProvider implements ServiceProviderInterface

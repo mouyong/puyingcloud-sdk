@@ -20,7 +20,6 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\BadResponseException;
 use Yan\PuyingCloudSdk\Exceptions\ApiException;
 use Yan\PuyingCloudSdk\Exceptions\AccessTokenExpireException;
-use Yan\PuyingCloudSdk\Exceptions\InvalidCustomHeaderException;
 use Yan\PuyingCloudSdk\Exceptions\InvalidResponseException;
 
 class Api extends AbstractAPI

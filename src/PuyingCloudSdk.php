@@ -43,9 +43,10 @@ class PuyingCloudSdk extends Foundation
     }
 
     /**
-     * foundation ^2.0 无此函数
+     * foundation ^2.0 无此函数.
      *
      * @param null $key
+     *
      * @return mixed
      */
     public function getConfig($key = null)
