@@ -14,6 +14,7 @@ return [
     'password' => env('PUYINGCLOUD_PASSWORD', 'your-password'),
 
     'log' => [
+        'name' => 'puyingcloud',
         'file' => storage_path('logs/puyingcloud.log'),
         'level' => 'debug',
         'permission' => 0777,

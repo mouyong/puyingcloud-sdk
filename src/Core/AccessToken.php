@@ -26,6 +26,8 @@ class AccessToken extends AbstractAccessToken
 
     protected $expiresJsonKey = 'expire_in';
 
+    protected $result;
+
     public function __construct($phone, $password, PuyingCloudSdk $app)
     {
         $this->appId = $phone;
@@ -46,7 +48,28 @@ class AccessToken extends AbstractAccessToken
             throw new ApiException('获取 token 失败');
         }
 
+        $this->setResult($result);
+
         return $result;
+    }
+
+    public function setResult($result)
+    {
+        $this->result = $result;
+    }
+
+    public function getResult($key = '', $default = null)
+    {
+        // 还未获取过 token
+        if (is_null($this->result)) {
+            $this->getToken(true);
+        }
+
+        if ($key) {
+            return $this->result[$key] ?? $default;
+        }
+
+        return $this->result;
     }
 
     public function getAction()
@@ -66,7 +89,7 @@ class AccessToken extends AbstractAccessToken
         return $api->parseJSON($response);
     }
 
-    public function getAccessTokenByUser($phone, $password)
+    public function setAccessTokenWithUser($phone, $password)
     {
         return new static($phone, $password, $this->app);
     }

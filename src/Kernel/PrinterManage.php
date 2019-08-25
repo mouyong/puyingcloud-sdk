@@ -25,6 +25,12 @@ class PrinterManage extends Api
         ]);
     }
 
+    /**
+     * 添加单台打印机
+     *
+     * @param array $printer = ['sn' => $sn, 'key' => $key, 'alias' => $alias]
+     * @return array|mixed|null|\Psr\Http\Message\ResponseInterface
+     */
     public function addOne(array $printer)
     {
         $printers = [
@@ -34,6 +40,16 @@ class PrinterManage extends Api
         return $this->add($printers);
     }
 
+    /**
+     * 批量添加打印机
+     *
+     * @param array $printers = [
+     *      ['sn' => $sn, 'key' => $key, 'alias' => $alias],
+     *      ['sn' => $sn, 'key' => $key, 'alias' => $alias],
+     *      ...
+     * ]
+     * @return array|mixed|null|\Psr\Http\Message\ResponseInterface
+     */
     public function add($printers = [])
     {
         $data = [];
@@ -43,13 +59,11 @@ class PrinterManage extends Api
                 throw new InvalidArgumentException("待添加打印机索引 {$index} 缺少必要参数 sn 或 key，请核实");
             }
 
-            if (count($printer) < 3) {
-                $name = sprintf('%s-%s', date('YmdHis'), substr(uniqid(), 0, 5));
-
-                $printer['name'] = $name;
+            if (count($printer) < 3 || empty($prefix['nickname'])) {
+                $printer['alias'] = $printer['sn'];
             }
 
-            $data[] = sprintf('%s#%s#%s', $printer['sn'], $printer['key'], $printer['name']);
+            $data[] = sprintf('%s#%s#%s', $printer['sn'], $printer['key'], $printer['alias']);
         }
 
         return $this->request('add_printer', [
