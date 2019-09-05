@@ -93,7 +93,7 @@ abstract class Adapter
         foreach ($row as &$cell) {
             $cell = convert2utf8($cell);
         }
-        [$first, $secend, $third] = $row;
+        list($first, $secend, $third) = $row;
 
         $halfWidth = $this->getByteLength($size) / 2;
 
