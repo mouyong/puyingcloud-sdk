@@ -2,10 +2,10 @@
 
 if (!function_exists('times')) {
     /**
-     * 重复
+     * 重复.
      *
      * @param string $text
-     * @param int $multiplier
+     * @param int    $multiplier
      *
      * @return string
      */
@@ -24,7 +24,7 @@ if (!function_exists('space')) {
     /**
      * 空格
      *
-     * @param int $multiplier
+     * @param int    $multiplier
      * @param string $input
      *
      * @return string
@@ -39,7 +39,7 @@ if (!function_exists('convert2utf8')) {
     /**
      * 文本转换为 utf-8 编码
      *
-     * @param int $multiplier
+     * @param int    $multiplier
      * @param string $input
      *
      * @return string
@@ -48,11 +48,11 @@ if (!function_exists('convert2utf8')) {
     {
         $encoding = mb_detect_encoding($text, mb_detect_order(), false);
 
-        if ($encoding == "UTF-8") {
+        if ('UTF-8' == $encoding) {
             $text = mb_convert_encoding($text, 'UTF-8', 'UTF-8');
         }
 
-        $out = iconv(mb_detect_encoding($text, mb_detect_order(), false), "UTF-8//IGNORE", $text);
+        $out = iconv(mb_detect_encoding($text, mb_detect_order(), false), 'UTF-8//IGNORE', $text);
 
         return $out;
     }
