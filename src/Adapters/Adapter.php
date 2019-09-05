@@ -31,7 +31,7 @@ abstract class Adapter
     public function getByteLength($size = 'small'): int
     {
         // size 不为 small 时，内容被放大一倍，能放下的数据减少一半，只能放 24 字节
-        if ($size != 'small') {
+        if ('small' != $size) {
             return $this->byteLength / 2;
         }
 
@@ -39,17 +39,19 @@ abstract class Adapter
     }
 
     /**
-     * 小字体
+     * 小字体.
      *
      * @param string $text
+     *
      * @return $this
      */
     abstract public function textSmall(string $text);
 
     /**
-     * 中字体
+     * 中字体.
      *
      * @param string $text
+     *
      * @return $this
      */
     abstract public function textMedium(string $text);
@@ -58,6 +60,7 @@ abstract class Adapter
      * 大字体.
      *
      * @param string $text
+     *
      * @return $this
      */
     abstract public function textLarge(string $text);
@@ -65,11 +68,12 @@ abstract class Adapter
     /**
      * 表格样式.
      *
-     * @param array $items
+     * @param array  $items
      * @param string $size
+     *
      * @return $this
      */
-    public function table($items, $size = 'small'): Adapter
+    public function table($items, $size = 'small'): self
     {
         $method = ['small' => 'textSmall', 'medium' => 'textMedium', 'large' => 'textLarge'][$size];
 
@@ -83,7 +87,7 @@ abstract class Adapter
     public function calcTableSpace(array $row, $size)
     {
         if (count($row) < 3) {
-            throw new RenderException("暂时只支持 3 列表格");
+            throw new RenderException('暂时只支持 3 列表格');
         }
 
         foreach ($row as &$cell) {
@@ -105,7 +109,6 @@ abstract class Adapter
             $processedThird = space($halfWidth - mb_strwidth($secend) - mb_strwidth($third)).$third;
         }
 
-
         $result = [$processedFirst, $processedSecend, $processedThird];
         $resultStr = implode('', $result);
 
@@ -116,9 +119,10 @@ abstract class Adapter
      * 小字表格.
      *
      * @param array $items
+     *
      * @return $this
      */
-    public function tableSmall($items): Adapter
+    public function tableSmall($items): self
     {
         return $this->table($items, 'small');
     }
@@ -127,9 +131,10 @@ abstract class Adapter
      * 中号字体表格.
      *
      * @param array $items
+     *
      * @return $this
      */
-    public function tableMedium($items): Adapter
+    public function tableMedium($items): self
     {
         return $this->table($items, 'medium');
     }
@@ -147,7 +152,7 @@ abstract class Adapter
     }
 
     /**
-     * 设置分割文字
+     * 设置分割文字.
      *
      * @param string $division
      *
@@ -156,10 +161,10 @@ abstract class Adapter
     abstract public function division($division = null);
 
     /**
-     * 围绕文字
+     * 围绕文字.
      *
      * @param string $text
-     * @param int $times
+     * @param int    $times
      * @param string $around
      * @param string $size
      *
@@ -183,6 +188,7 @@ abstract class Adapter
 
     /**
      * @param string $text
+     *
      * @return $this
      */
     public function push(string $text)

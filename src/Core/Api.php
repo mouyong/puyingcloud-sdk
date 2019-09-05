@@ -118,7 +118,6 @@ class Api extends AbstractAPI
             }
 
             if ($response) {
-
                 // 如果请求有响应，但是状态码大于等于500，继续重试(这里根据自己的业务而定)
                 if ($response->getStatusCode() >= 500) {
                     return true;
