@@ -105,6 +105,8 @@ class Api extends AbstractAPI
             $value = null,
             RequestException $exception = null
         ) {
+            $this->app['logger']->debug('action: '.$this->action(), $this->data());
+
             // 超过最大重试次数，不再重试
             if ($retries > static::MAX_RETRIES) {
                 return false;
@@ -116,6 +118,7 @@ class Api extends AbstractAPI
             }
 
             if ($response) {
+
                 // 如果请求有响应，但是状态码大于等于500，继续重试(这里根据自己的业务而定)
                 if ($response->getStatusCode() >= 500) {
                     return true;
@@ -195,7 +198,14 @@ class Api extends AbstractAPI
                 throw new AccessTokenExpireException($result['msg'], $result['status']);
             }
 
-            throw new ApiException($result['msg'], $result['status']);
+            $msg = $result['msg'];
+
+            if (strstr($msg, 'content is ')) {
+                dd($msg);
+                $msg = \json_decode(str_replace('content is ', '', $exception->getMessage()), true) ?? $exception->getMessage();
+            }
+
+            throw new ApiException($msg, $result['status']);
         }
     }
 }

@@ -18,7 +18,7 @@ class FormatterTest extends TestCase
     {
         $title = '测试标题';
 
-        $formatter = new TestFormatter($title);
+        $formatter = new TestTemplate($title);
 
         $this->assertEquals("<CB>$title<BR></CB><BR>", strval($formatter));
     }

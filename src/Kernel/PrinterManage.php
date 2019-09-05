@@ -80,19 +80,19 @@ class PrinterManage extends Api
         ]);
     }
 
-    public function remove($printersSns = [])
+    public function remove($printerSns = [])
     {
-        return $this->request('remove_printer', $printersSns);
+        return $this->request('remove_printer', $printerSns);
     }
 
-    public function createPrinterTask($printersSn, $title, $content, $count = 1, $interval = 0)
+    public function createPrinterTask($printerSn, $content, $title = '', $count = 1, $interval = 0)
     {
         return $this->request('add_task', [
             'count' => $count,
             'interval' => $interval,
             'title' => $title,
             'content' => strval($content),
-            'sn' => $printersSn,
+            'sn' => $printerSn,
         ]);
     }
 
@@ -113,10 +113,10 @@ class PrinterManage extends Api
         ]);
     }
 
-    public function cancelWaitPrintTaskBySn($printersSn)
+    public function cancelWaitPrintTaskBySn($printerSn)
     {
         return $this->request('remove_task', [
-            'sn' => strval($printersSn),
+            'sn' => strval($printerSn),
         ]);
     }
 

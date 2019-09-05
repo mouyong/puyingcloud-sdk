@@ -10,12 +10,12 @@
 
 namespace Yan\PuyinCloudSdk\Test;
 
-use Yan\PuyingCloudSdk\Contracts\Formatter;
-use Yan\PuyingCloudSdk\Kernel\ContentFormatter;
+use Yan\PuyingCloudSdk\Contracts\Template;
+use Yan\PuyingCloudSdk\Adapters\Adapter;
 
-class TestFormatter extends ContentFormatter implements Formatter
+class TestTemplate extends Adapter implements Template
 {
-    public function format()
+    public function render()
     {
         $title = $this->title($this->content);
 

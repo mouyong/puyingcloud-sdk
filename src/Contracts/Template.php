@@ -10,7 +10,7 @@
 
 namespace Yan\PuyingCloudSdk\Contracts;
 
-interface Formatter
+interface Template
 {
-    public function format();
+    public function render();
 }

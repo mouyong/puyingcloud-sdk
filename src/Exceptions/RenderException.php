@@ -10,6 +10,6 @@
 
 namespace Yan\PuyingCloudSdk\Exceptions;
 
-class FormatException extends \RuntimeException
+class RenderException extends \RuntimeException
 {
 }
