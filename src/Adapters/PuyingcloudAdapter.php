@@ -4,13 +4,13 @@ namespace Yan\PuyingCloudSdk\Adapters;
 
 abstract class PuyingcloudAdapter extends Adapter
 {
-    protected $glue = "<BR>";
+    protected $glue = '<BR>';
 
     /**
      * 添加换行标签.
      *
      * @param string $text
-     * @param bool $endOfLine 行尾
+     * @param bool   $endOfLine 行尾
      *
      * @return string
      */
@@ -23,14 +23,17 @@ abstract class PuyingcloudAdapter extends Adapter
         }
 
         return $this->push($text);
-    }    /**
- * 打印烧录到打印机中的 logo.
- *
- * @param string $text
- * @param int $order 词机型打印机可烧录 4 个 logo 图 n 为 1~4
- * @param bool $endOfLine
- * @return $this
- */
+    }
+
+    /**
+     * 打印烧录到打印机中的 logo.
+     *
+     * @param string $text
+     * @param int    $order     词机型打印机可烧录 4 个 logo 图 n 为 1~4
+     * @param bool   $endOfLine
+     *
+     * @return $this
+     */
     public function logo($text, $order = 1, $endOfLine = true)
     {
         $logon = "<LOGO{$order}>";
@@ -46,6 +49,7 @@ abstract class PuyingcloudAdapter extends Adapter
 
     /**
      * @param string $text
+     *
      * @return $this
      */
     public function cash(string $text)
@@ -57,6 +61,7 @@ abstract class PuyingcloudAdapter extends Adapter
      * 居中放大.
      *
      * @param string $text
+     *
      * @return $this
      */
     public function cb(string $text)
@@ -68,6 +73,7 @@ abstract class PuyingcloudAdapter extends Adapter
      * 放大一倍.
      *
      * @param string $text
+     *
      * @return $this
      */
     public function b(string $text)
@@ -79,6 +85,7 @@ abstract class PuyingcloudAdapter extends Adapter
      * 居中.
      *
      * @param string $text
+     *
      * @return $this
      */
     public function c(string $text)
@@ -90,6 +97,7 @@ abstract class PuyingcloudAdapter extends Adapter
      * 居中.
      *
      * @param string $text
+     *
      * @return $this
      */
     public function center(string $text)
@@ -101,6 +109,7 @@ abstract class PuyingcloudAdapter extends Adapter
      * 字体变高一倍.
      *
      * @param string $text
+     *
      * @return $this
      */
     public function l(string $text)
@@ -124,6 +133,7 @@ abstract class PuyingcloudAdapter extends Adapter
      * 居中二维码.
      *
      * @param string $text
+     *
      * @return $this
      */
     public function qrcode(string $text)
@@ -178,9 +188,10 @@ abstract class PuyingcloudAdapter extends Adapter
     }
 
     /**
-     * 语音播报
+     * 语音播报.
      *
      * @param string $text
+     *
      * @return $this
      */
     public function VO(string $text)
@@ -214,9 +225,10 @@ abstract class PuyingcloudAdapter extends Adapter
      * 围绕文字.
      *
      * @param string $text
-     * @param int $times
+     * @param int    $times
      * @param string $around
      * @param string $size
+     *
      * @return $this
      */
     public function around($text, $times = 1, $around = '·', $size = 'small'): Adapter
@@ -233,6 +245,7 @@ abstract class PuyingcloudAdapter extends Adapter
         if (mb_strwidth($text) !== $this->getByteLength($size)) {
             $text = $text.$around;
         }
+
         return $this->section($text);
     }
 }
