@@ -12,7 +12,7 @@ if (!function_exists('times')) {
     function times($text, $multiplier = 1)
     {
         // 处理字宽问题，避免超出长度
-        if (mb_strwidth($text) > 1 && $multiplier > 1) {
+        if (ord($text) > 128 && $multiplier > 1) {
             $multiplier = floor($multiplier / 2);
         }
 

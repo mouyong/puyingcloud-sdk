@@ -17,12 +17,25 @@ abstract class PuyingcloudAdapter extends Adapter
     public function br($text, $endOfLine = true)
     {
         if ($endOfLine) {
-            $text = "{$text}<BR>";
-        } else {
-            $text = "<BR>{$text}";
+            return sprintf('%s<BR>', $text);
         }
 
-        return $this->push($text);
+        return sprintf('<BR>%s', $text);
+    }
+
+    /**
+     * 将内容嵌套在指定格式的 format 中，并在内容尾部和行尾加换行符.
+     *
+     * @param string $format
+     * @param string $content
+     *
+     * @return string
+     */
+    protected function warpBr($format, $content)
+    {
+        return $this->br(
+            sprintf($format, $this->br($content))
+        );
     }
 
     /**
@@ -32,19 +45,15 @@ abstract class PuyingcloudAdapter extends Adapter
      * @param int    $order     词机型打印机可烧录 4 个 logo 图 n 为 1~4
      * @param bool   $endOfLine
      *
-     * @return $this
+     * @return string
      */
     public function logo($text, $order = 1, $endOfLine = true)
     {
-        $logon = "<LOGO{$order}>";
-
         if ($endOfLine) {
-            $text = "{$text}{$logon}";
-        } else {
-            $text = "{$logon}{$text}";
+            return sprintf('%s%s', $text, $this->c(sprintf('<LOGO%s>', $order)));
         }
 
-        return $this->push($text);
+        return sprintf('%s%s', $this->c('<LOGOn>'), $text);
     }
 
     /**
@@ -54,7 +63,7 @@ abstract class PuyingcloudAdapter extends Adapter
      */
     public function cash(string $text)
     {
-        return $this->push("<Cash>{$text}");
+        return sprintf('<Cash>%s', $text);
     }
 
     /**
@@ -62,11 +71,11 @@ abstract class PuyingcloudAdapter extends Adapter
      *
      * @param string $text
      *
-     * @return $this
+     * @return string
      */
     public function cb(string $text)
     {
-        return $this->push("<CB>{$text}<BR></CB>");
+        return $this->warpBr('<CB>%s</CB>', $text);
     }
 
     /**
@@ -74,11 +83,11 @@ abstract class PuyingcloudAdapter extends Adapter
      *
      * @param string $text
      *
-     * @return $this
+     * @return string
      */
     public function b(string $text)
     {
-        return $this->push("<B>{$text}<BR></B>");
+        return $this->warpBr('<B>%s</B>', $text);
     }
 
     /**
@@ -86,11 +95,11 @@ abstract class PuyingcloudAdapter extends Adapter
      *
      * @param string $text
      *
-     * @return $this
+     * @return string
      */
     public function c(string $text)
     {
-        return $this->push("<C>{$text}<BR></C>");
+        return $this->warpBr('<C>%s</C>', $text);
     }
 
     /**
@@ -98,7 +107,7 @@ abstract class PuyingcloudAdapter extends Adapter
      *
      * @param string $text
      *
-     * @return $this
+     * @return string
      */
     public function center(string $text)
     {
@@ -110,11 +119,11 @@ abstract class PuyingcloudAdapter extends Adapter
      *
      * @param string $text
      *
-     * @return $this
+     * @return string
      */
     public function l(string $text)
     {
-        return $this->push("<L>{$text}<BR></L>");
+        return $this->warpBr('<L>%s</L>', $text);
     }
 
     /**
@@ -126,7 +135,7 @@ abstract class PuyingcloudAdapter extends Adapter
      */
     public function w(string $text)
     {
-        return $this->push("<W>{$text}<BR></W>");
+        return $this->warpBr('<W>%s</W>', $text);
     }
 
     /**
@@ -134,11 +143,11 @@ abstract class PuyingcloudAdapter extends Adapter
      *
      * @param string $text
      *
-     * @return $this
+     * @return string
      */
     public function qrcode(string $text)
     {
-        return $this->push("<C><QR>{$text}<BR></QR><BR></C>");
+        return sprintf('<C><QR>%s<BR></QR><BR></C>', $text);
     }
 
     /**
@@ -146,11 +155,11 @@ abstract class PuyingcloudAdapter extends Adapter
      *
      * @param string $text
      *
-     * @return $this
+     * @return string
      */
     public function right(string $text)
     {
-        return $this->push("<RIGHT>{$text}<BR></RIGHT>");
+        return $this->warpBr('<RIGHT>%s</RIGHT>', $text);
     }
 
     /**
@@ -158,21 +167,21 @@ abstract class PuyingcloudAdapter extends Adapter
      *
      * @param string $text
      *
-     * @return $this
+     * @return string
      */
     public function bold(string $text)
     {
-        return $this->push("<BOLD>{$text}<BR></BOLD>");
+        return $this->warpBr('<BOLD>%s</BOLD>', $text);
     }
 
     /**
      * 结束内容排版.
      *
-     * @return $this
+     * @return string
      */
-    public function cut()
+    public function cut($text = '')
     {
-        return $this->push('<CUT>');
+        return sprintf('%s<CUT>', $text);
     }
 
     /**
@@ -180,11 +189,11 @@ abstract class PuyingcloudAdapter extends Adapter
      *
      * @param $text
      *
-     * @return $this
+     * @return string
      */
     public function init(string $text)
     {
-        return $this->push("<Init>{$text}");
+        return sprintf('<Init>%s', $this->br($this->br($text), false));
     }
 
     /**
@@ -192,11 +201,11 @@ abstract class PuyingcloudAdapter extends Adapter
      *
      * @param string $text
      *
-     * @return $this
+     * @return string
      */
     public function VO(string $text)
     {
-        return $this->push("<VO>{$text}<BR></VO>");
+        return "<VO>{$text}<BR></VO>";
     }
 
     public function textSmall(string $text): Adapter
