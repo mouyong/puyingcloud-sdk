@@ -247,7 +247,7 @@ abstract class PuyingcloudAdapter extends Adapter
 
         // 左、右需要重复的字符串
         // (小票宽度 - 字符串长度 - 2 字节空格) / 2
-        $halfAround = times($around, ($this->getByteLength($size) - $strlen - 2) / 2);
+        $halfAround = times($around, ($this->getByteLength($size) - $strlen) / 2);
 
         $text = "{$halfAround} {$text} {$halfAround}";
 
