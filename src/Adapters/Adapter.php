@@ -39,7 +39,7 @@ abstract class Adapter
     }
 
     /**
-     * 小号字体
+     * 小号字体.
      *
      * @param string $text
      *
@@ -48,7 +48,7 @@ abstract class Adapter
     abstract public function textSmall(string $text);
 
     /**
-     * 中号字体
+     * 中号字体.
      *
      * @param string $text
      *
@@ -57,7 +57,7 @@ abstract class Adapter
     abstract public function textMedium(string $text);
 
     /**
-     * 大号字体
+     * 大号字体.
      *
      * @param string $text
      *
@@ -85,7 +85,7 @@ abstract class Adapter
     }
 
     /**
-     * 表格空白补全
+     * 表格空白补全.
      *
      * @param array  $row
      * @param string $size
@@ -165,7 +165,7 @@ abstract class Adapter
     abstract public function division($division = null);
 
     /**
-     * 两边围绕
+     * 两边围绕.
      *
      * @param string $text
      * @param int    $times
@@ -177,7 +177,7 @@ abstract class Adapter
     abstract public function around(string $text, $times = 1, $around = '·', $size = 'small');
 
     /**
-     * 转义
+     * 转义.
      *
      * @param string $text
      *
