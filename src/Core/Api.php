@@ -200,7 +200,6 @@ class Api extends AbstractAPI
             $msg = $result['msg'];
 
             if (strstr($msg, 'content is ')) {
-                dd($msg);
                 $msg = \json_decode(str_replace('content is ', '', $exception->getMessage()), true) ?? $exception->getMessage();
             }
 
