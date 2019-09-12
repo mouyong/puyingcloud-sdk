@@ -240,7 +240,7 @@ abstract class PuyingcloudAdapter extends Adapter
      *
      * @return $this
      */
-    public function around($text, $times = 1, $around = '·', $size = 'small')
+    public function around(string $text, $times = 1, $around = '·', $size = 'small')
     {
         $text = convert2utf8($text);
         $strlen = strlen($text);
