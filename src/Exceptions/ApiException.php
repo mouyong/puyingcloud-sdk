@@ -16,7 +16,9 @@ use Throwable;
 class ApiException extends RuntimeException
 {
     const REQUEST_BODY_ERROR = 40013003;
+
     const PRINTER_ALREADY_SUBSCRIBED = 40013007;
+
     const SN_UNEXISTS = 40013002;
 
     const EXCEPTION_MESSAGE_MAP = [
