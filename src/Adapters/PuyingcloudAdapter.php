@@ -208,22 +208,22 @@ abstract class PuyingcloudAdapter extends Adapter
         return "<VO>{$text}<BR></VO>";
     }
 
-    public function textSmall(string $text): Adapter
+    public function textSmall(string $text)
     {
         return $this->section($text);
     }
 
-    public function textMedium(string $text): Adapter
+    public function textMedium(string $text)
     {
         return $this->section("<B>{$text}<BR></B>");
     }
 
-    public function textLarge(string $text): Adapter
+    public function textLarge(string $text)
     {
         return $this->push("<B>{$text}<BR></B>");
     }
 
-    public function division($division = null): Adapter
+    public function division($division = null)
     {
         $division = $division ?: times('·', $this->byteLength);
 

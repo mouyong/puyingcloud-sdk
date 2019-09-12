@@ -20,7 +20,7 @@ class TitleTemplate extends Adapter implements Template
         $this->result = $title;
     }
 
-    public function render(): string
+    public function render()
     {
         $this->textSmall($this->result);
 

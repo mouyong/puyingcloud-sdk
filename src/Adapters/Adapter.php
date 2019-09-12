@@ -39,41 +39,41 @@ abstract class Adapter
     }
 
     /**
-     * 小字体.
+     * 小号字体
      *
      * @param string $text
      *
-     * @return $this
+     * @return mixed
      */
     abstract public function textSmall(string $text);
 
     /**
-     * 中字体.
+     * 中号字体
      *
      * @param string $text
      *
-     * @return $this
+     * @return mixed
      */
     abstract public function textMedium(string $text);
 
     /**
-     * 大字体.
+     * 大号字体
      *
      * @param string $text
      *
-     * @return $this
+     * @return mixed
      */
     abstract public function textLarge(string $text);
 
     /**
-     * 表格样式.
+     * 表格
      *
      * @param array  $items
      * @param string $size
      *
-     * @return $this
+     * @return mixed
      */
-    public function table($items, $size = 'small'): self
+    public function table($items, $size = 'small')
     {
         $method = ['small' => 'textSmall', 'medium' => 'textMedium', 'large' => 'textLarge'][$size];
 
@@ -84,6 +84,14 @@ abstract class Adapter
         return $this;
     }
 
+    /**
+     * 表格空白补全
+     *
+     * @param array  $row
+     * @param string $size
+     *
+     * @return mixed
+     */
     public function calcTableSpace(array $row, $size)
     {
         if (count($row) < 3) {
@@ -116,35 +124,33 @@ abstract class Adapter
     }
 
     /**
-     * 小字表格.
+     * 小号表格
      *
      * @param array $items
      *
-     * @return $this
+     * @return mixed
      */
-    public function tableSmall($items): self
+    public function tableSmall($items)
     {
         return $this->table($items, 'small');
     }
 
     /**
-     * 中号字体表格.
+     * 中号表格
      *
      * @param array $items
      *
-     * @return $this
+     * @return mixed
      */
-    public function tableMedium($items): self
+    public function tableMedium($items)
     {
         return $this->table($items, 'medium');
     }
 
     /**
-     * 大号字体表格
+     * 大号表格
      *
-     * @param array $items
-     *
-     * @return $this
+     * @return mixed
      */
     public function tableLarge($items)
     {
@@ -152,32 +158,32 @@ abstract class Adapter
     }
 
     /**
-     * 设置分割文字.
+     * 行分割线
      *
-     * @param string $division
-     *
-     * @return $this
+     * @return mixed
      */
     abstract public function division($division = null);
 
     /**
-     * 围绕文字.
+     * 两边围绕
      *
      * @param string $text
      * @param int    $times
      * @param string $around
      * @param string $size
      *
-     * @return $this
+     * @return mixed
      */
-    abstract public function around($text, $times = 1, $around = '·', $size = 'small');
+    abstract public function around(string $text, $times = 1, $around = '·', $size = 'small');
 
     /**
+     * 转义
+     *
      * @param string $text
      *
-     * @return $this
+     * @return mixed
      */
-    public function section($text)
+    public function section(string $text)
     {
         foreach ($this->escapes as $escape) {
             $text = str_replace($escape, '\\'.$escape, $text);
@@ -206,7 +212,7 @@ abstract class Adapter
     /**
      * @return string
      */
-    public function render(): string
+    public function render()
     {
         return implode($this->glue, $this->content);
     }
