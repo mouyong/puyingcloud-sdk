@@ -61,7 +61,7 @@ class PrinterManage extends Api
                 throw new InvalidArgumentException("待添加打印机索引 {$index} 缺少必要参数 sn 或 key，请核实");
             }
 
-            if (count($printer) < 3 || empty($prefix['alias'])) {
+            if (count($printer) < 3 || empty($printer['alias'])) {
                 $printer['alias'] = $printer['sn'];
             }
 
