@@ -19,11 +19,14 @@ class ApiException extends RuntimeException
 
     const PRINTER_ALREADY_SUBSCRIBED = 40013007;
 
+    const PRINTER_UNUBSCRIBED = 403133001;
+
     const SN_UNEXISTS = 40013002;
 
     const EXCEPTION_MESSAGE_MAP = [
         self::REQUEST_BODY_ERROR => '请检查输入信息是否正确',
         self::PRINTER_ALREADY_SUBSCRIBED => '小票机已绑定，请先解绑',
+        self::PRINTER_UNUBSCRIBED => '小票机未绑定',
         self::SN_UNEXISTS => '小票机不存在',
     ];
 
