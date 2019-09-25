@@ -16,6 +16,8 @@ if (!function_exists('times')) {
             $multiplier = floor($multiplier / 2);
         }
 
+        $multiplier = $multiplier >=0 ? $multiplier : 0;
+
         return str_repeat($text, $multiplier);
     }
 }

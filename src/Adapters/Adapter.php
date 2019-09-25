@@ -103,20 +103,40 @@ abstract class Adapter
         }
         list($first, $secend, $third) = $row;
 
+        // 计算一半字宽长度是多少
         $halfWidth = $this->getByteLength($size) / 2;
 
-        $third = space($halfWidth - mb_strwidth($secend) - mb_strwidth($third)).$third;
+        // 先处理第三列，第三列前补 2 个空格
+        $processedThird = space(2).$third;
 
-        if (mb_strwidth($first) > $halfWidth) {
+        // 计算第一、二、处理好的第三列占用去多长字宽
+        $firstWidth = mb_strwidth($first);
+        $secendWidth = mb_strwidth($secend);
+        $thirdWidth = mb_strwidth($processedThird);
+
+        // 1. 第一列超出一半宽度时，需要换行
+        // 2. 第二列 + 第三列 字宽超过一半时，第一列需要换行
+        if ($firstWidth > $halfWidth || ($secendWidth + $thirdWidth) > $halfWidth) {
             $processedFirst = $first.'<BR>';
-            $processedSecend = space($halfWidth).$secend;
-            $processedThird = space($halfWidth - mb_strwidth($secend) - mb_strwidth($third)).$third;
         } else {
-            $processedFirst = $first.space($halfWidth - mb_strwidth($first));
-            $processedSecend = $secend;
-            $processedThird = space($halfWidth - mb_strwidth($secend) - mb_strwidth($third)).$third;
+            $processedFirst = $first.space($halfWidth - $firstWidth);
         }
 
+        // 处理第三列
+
+        // 第二列 + 第三列 字宽超过一半时，换行后，需要第一列换行并少占用第二行的空格
+        // 此时第三列先占位
+        if (($secendWidth + $thirdWidth) > $halfWidth) {
+            // 处理第二列（第二行时，第一列占空数 = 整行字宽 - 处理好的第三列字宽 - 第二列字宽）
+            $firstNeedSpaceNum = ($halfWidth*2) - $thirdWidth - $secendWidth;
+            $processedSecend = space($firstNeedSpaceNum).$secend;
+        } else {
+            // 处理第二列后面需要补充多少空格
+            $secendNeedSpaceNum = $halfWidth - $thirdWidth;
+            $processedSecend = $secend.space($secendNeedSpaceNum);
+        }
+
+        // 返回结果
         $result = [$processedFirst, $processedSecend, $processedThird];
         $resultStr = implode('', $result);
 
