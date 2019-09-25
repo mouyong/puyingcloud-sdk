@@ -128,7 +128,7 @@ abstract class Adapter
         // 此时第三列先占位
         if (($secendWidth + $thirdWidth) > $halfWidth) {
             // 处理第二列（第二行时，第一列占空数 = 整行字宽 - 处理好的第三列字宽 - 第二列字宽）
-            $firstNeedSpaceNum = ($halfWidth*2) - $thirdWidth - $secendWidth;
+            $firstNeedSpaceNum = ($halfWidth * 2) - $thirdWidth - $secendWidth;
             $processedSecend = space($firstNeedSpaceNum).$secend;
         } else {
             // 处理第二列后面需要补充多少空格
