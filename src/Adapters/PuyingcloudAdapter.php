@@ -255,6 +255,8 @@ abstract class PuyingcloudAdapter extends Adapter
             $text = $text.$around;
         }
 
-        return $this->section($text);
+        $method = 'text'.ucfirst($size);
+
+        return $this->{$method}($text);
     }
 }
