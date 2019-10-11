@@ -116,7 +116,7 @@ abstract class Adapter
 
         // 1. 第一列超出一半宽度时，需要换行
         // 2. 第二列 + 第三列 字宽超过一半时，第一列需要换行
-        if ($firstWidth > $halfWidth || ($secendWidth + $thirdWidth) > $halfWidth) {
+        if ($firstWidth >= $halfWidth || ($secendWidth + $thirdWidth) > $halfWidth) {
             $processedFirst = $first.'<BR>';
         } else {
             $processedFirst = $first.space($halfWidth - $firstWidth);
@@ -126,7 +126,7 @@ abstract class Adapter
 
         // 第二列 + 第三列 字宽超过一半时，换行后，需要第一列换行并少占用第二行的空格
         // 此时第三列先占位
-        if (($secendWidth + $thirdWidth) > $halfWidth) {
+        if ($firstWidth >= $halfWidth || ($secendWidth + $thirdWidth) > $halfWidth) {
             // 处理第二列（第二行时，第一列占空数 = 整行字宽 - 处理好的第三列字宽 - 第二列字宽）
             $firstNeedSpaceNum = ($halfWidth * 2) - $thirdWidth - $secendWidth;
             $processedSecend = space($firstNeedSpaceNum).$secend;
