@@ -32,12 +32,12 @@ class TitleTemplate extends Adapter implements Template
         $this->push($text);
     }
 
-    public function textMedium(string $text)
+    public function textMedium(string $text, $needBr = true, $bold = false)
     {
         // TODO: Implement textMedium() method.
     }
 
-    public function textLarge(string $text)
+    public function textLarge(string $text, $needBr = true, $bold = false)
     {
         // TODO: Implement textLarge() method.
     }
@@ -47,7 +47,7 @@ class TitleTemplate extends Adapter implements Template
         // TODO: Implement division() method.
     }
 
-    public function around($text, $times = 1, $around = '·', $size = 'small')
+    public function around($text, $times = 1, $around = '·', $size = 'small', $needBr = true, $bold = true)
     {
         // TODO: Implement around() method.
     }

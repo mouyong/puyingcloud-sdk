@@ -28,8 +28,13 @@ abstract class Adapter
         $this->content = [];
     }
 
-    public function getByteLength($size = 'small'): int
+    public function getByteLength($size = 'small', $bold = false): int
     {
+        // bold 为 true 时，字体倍宽，能放下的数据减少一半
+        if (! $bold) {
+            return $this->byteLength;
+        }
+
         // size 不为 small 时，内容被放大一倍，能放下的数据减少一半，只能放 24 字节
         if ('small' != $size) {
             return $this->byteLength / 2;
@@ -42,19 +47,20 @@ abstract class Adapter
      * 小号字体.
      *
      * @param string $text
-     *
+     * @param bool $bold
      * @return mixed
      */
-    abstract public function textSmall(string $text);
+    abstract public function textSmall(string $text, $bold = false);
 
     /**
      * 中号字体.
      *
      * @param string $text
-     *
+     * @param bool $needBr
+     * @param bool $bold
      * @return mixed
      */
-    abstract public function textMedium(string $text);
+    abstract public function textMedium(string $text, $needBr = true, $bold = false);
 
     /**
      * 大号字体.
@@ -63,22 +69,22 @@ abstract class Adapter
      *
      * @return mixed
      */
-    abstract public function textLarge(string $text);
+    abstract public function textLarge(string $text, $needBr = true, $bold = false);
 
     /**
      * 表格
      *
-     * @param array  $items
+     * @param array $items
      * @param string $size
-     *
+     * @param bool $bold
      * @return mixed
      */
-    public function table($items, $size = 'small')
+    public function table($items, $size = 'small', $bold = false)
     {
         $method = ['small' => 'textSmall', 'medium' => 'textMedium', 'large' => 'textLarge'][$size];
 
         foreach ($items as $key => $value) {
-            $this->{$method}($this->calcTableSpace($value, $size));
+            $this->{$method}($this->calcTableSpace($value, $size, $bold), $bold);
         }
 
         return $this;
@@ -87,12 +93,12 @@ abstract class Adapter
     /**
      * 表格空白补全.
      *
-     * @param array  $row
+     * @param array $row
      * @param string $size
-     *
+     * @param bool $bold
      * @return mixed
      */
-    public function calcTableSpace(array $row, $size)
+    public function calcTableSpace(array $row, $size, $bold = false)
     {
         if (count($row) < 3) {
             throw new RenderException('暂时只支持 3 列表格');
@@ -104,7 +110,7 @@ abstract class Adapter
         list($first, $secend, $third) = $row;
 
         // 计算一半字宽长度是多少
-        $halfWidth = $this->getByteLength($size) / 2;
+        $halfWidth = $this->getByteLength($size, $bold) / 2;
 
         // 先处理第三列，第三列前补 2 个空格
         $processedThird = space(2).$third;
@@ -132,8 +138,8 @@ abstract class Adapter
             $processedSecend = space($firstNeedSpaceNum).$secend;
         } else {
             // 处理第二列后面需要补充多少空格
-            $secendNeedSpaceNum = $halfWidth - $thirdWidth;
-            $processedSecend = $secend.space($secendNeedSpaceNum);
+            $secendNeedSpaceNum = $halfWidth - $thirdWidth - $secendWidth;
+            $processedSecend = space($secendNeedSpaceNum).$secend;
         }
 
         // 返回结果
@@ -150,9 +156,9 @@ abstract class Adapter
      *
      * @return mixed
      */
-    public function tableSmall($items)
+    public function tableSmall($items, $bold = false)
     {
-        return $this->table($items, 'small');
+        return $this->table($items, 'small', $bold);
     }
 
     /**
@@ -162,9 +168,9 @@ abstract class Adapter
      *
      * @return mixed
      */
-    public function tableMedium($items)
+    public function tableMedium($items, $bold = false)
     {
-        return $this->table($items, 'medium');
+        return $this->table($items, 'medium', $bold);
     }
 
     /**
@@ -172,9 +178,9 @@ abstract class Adapter
      *
      * @return mixed
      */
-    public function tableLarge($items)
+    public function tableLarge($items, $bold = false)
     {
-        return $this->table($items, 'large');
+        return $this->table($items, 'large', $bold);
     }
 
     /**

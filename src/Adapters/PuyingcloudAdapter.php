@@ -227,22 +227,32 @@ abstract class PuyingcloudAdapter extends Adapter
         return $this->section($text);
     }
 
-    public function textMedium(string $text, $bold = false)
+    public function textMedium(string $text, $needBr = true, $bold = false)
     {
-        if ($bold) {
-            return $this->push("<B>{$text}<BR></B>");
+        $br = '';
+        if ($needBr) {
+            $br = '<BR>';
         }
 
-        return $this->push("<L>{$text}<BR></L>");
+        if ($bold) {
+            return $this->push("<B>{$text}$br</B>");
+        }
+
+        return $this->push("<L>{$text}$br</L>");
     }
 
-    public function textLarge(string $text, $bold = false)
+    public function textLarge(string $text, $needBr = true, $bold = false)
     {
-        if ($bold) {
-            return $this->push("<B>{$text}<BR></B>");
+        $br = '';
+        if ($needBr) {
+            $br = '<BR>';
         }
 
-        return $this->push("<L>{$text}<BR></L>");
+        if ($bold) {
+            return $this->push("<B>{$text}$br</B>");
+        }
+
+        return $this->push("<L>{$text}$br</L>");
     }
 
     public function division($division = null)
@@ -259,27 +269,27 @@ abstract class PuyingcloudAdapter extends Adapter
      * @param int $times
      * @param string $around
      * @param string $size
+     * @param bool $needBr
      * @param bool $bold
-     *
      * @return $this
      */
-    public function around(string $text, $times = 1, $around = '·', $size = 'small', $bold = true)
+    public function around(string $text, $times = 1, $around = '·', $size = 'small', $needBr = true, $bold = true)
     {
         $text = convert2utf8($text);
         $strlen = strlen($text);
 
         // 左、右需要重复的字符串
         // (小票宽度 - 字符串长度 - 2 字节空格) / 2
-        $halfAround = times($around, ($this->getByteLength($size) - $strlen) / 2);
+        $halfAround = times($around, ($this->getByteLength($size, $bold) - $strlen) / 2);
 
         $text = "{$halfAround} {$text} {$halfAround}";
 
-        if (mb_strwidth($text) !== $this->getByteLength($size)) {
+        if (mb_strwidth($text) !== $this->getByteLength($size, $bold)) {
             $text = $text.$around;
         }
 
         $method = 'text'.ucfirst($size);
 
-        return $this->{$method}($text, $bold);
+        return $this->{$method}($text, $needBr, $bold);
     }
 }
