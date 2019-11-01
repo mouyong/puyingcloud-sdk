@@ -269,8 +269,9 @@ abstract class PuyingcloudAdapter extends Adapter
      * @param int    $times
      * @param string $around
      * @param string $size
-     * @param bool $needBr
-     * @param bool $bold
+     * @param bool   $needBr
+     * @param bool   $bold
+     *
      * @return $this
      */
     public function around(string $text, $times = 1, $around = '·', $size = 'small', $needBr = true, $bold = true)

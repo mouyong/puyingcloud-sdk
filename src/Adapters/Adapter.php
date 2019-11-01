@@ -31,7 +31,7 @@ abstract class Adapter
     public function getByteLength($size = 'small', $bold = false): int
     {
         // bold 为 true 时，字体倍宽，能放下的数据减少一半
-        if (! $bold) {
+        if (!$bold) {
             return $this->byteLength;
         }
 
@@ -47,7 +47,8 @@ abstract class Adapter
      * 小号字体.
      *
      * @param string $text
-     * @param bool $bold
+     * @param bool   $bold
+     *
      * @return mixed
      */
     abstract public function textSmall(string $text, $bold = false);
@@ -56,8 +57,9 @@ abstract class Adapter
      * 中号字体.
      *
      * @param string $text
-     * @param bool $needBr
-     * @param bool $bold
+     * @param bool   $needBr
+     * @param bool   $bold
+     *
      * @return mixed
      */
     abstract public function textMedium(string $text, $needBr = true, $bold = false);
@@ -74,9 +76,10 @@ abstract class Adapter
     /**
      * 表格
      *
-     * @param array $items
+     * @param array  $items
      * @param string $size
-     * @param bool $bold
+     * @param bool   $bold
+     *
      * @return mixed
      */
     public function table($items, $size = 'small', $bold = false)
@@ -93,9 +96,10 @@ abstract class Adapter
     /**
      * 表格空白补全.
      *
-     * @param array $row
+     * @param array  $row
      * @param string $size
-     * @param bool $bold
+     * @param bool   $bold
+     *
      * @return mixed
      */
     public function calcTableSpace(array $row, $size, $bold = false)
