@@ -10,14 +10,14 @@ abstract class PuyingcloudAdapter extends Adapter
      * 添加换行标签.
      *
      * @param string $text
-     * @param bool $endOfLine 行尾
-     * @param bool $needBr
+     * @param bool   $endOfLine 行尾
+     * @param bool   $needBr
      *
      * @return string
      */
     public function br($text, $endOfLine = true, $needBr = true)
     {
-        if (! $needBr) {
+        if (!$needBr) {
             return $text;
         }
 
