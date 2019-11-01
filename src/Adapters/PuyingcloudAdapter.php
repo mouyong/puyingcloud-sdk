@@ -10,12 +10,17 @@ abstract class PuyingcloudAdapter extends Adapter
      * 添加换行标签.
      *
      * @param string $text
-     * @param bool   $endOfLine 行尾
+     * @param bool $endOfLine 行尾
+     * @param bool $needBr
      *
      * @return string
      */
-    public function br($text, $endOfLine = true)
+    public function br($text, $endOfLine = true, $needBr = true)
     {
+        if (! $needBr) {
+            return $text;
+        }
+
         if ($endOfLine) {
             return sprintf('%s<BR>', $text);
         }
@@ -31,11 +36,9 @@ abstract class PuyingcloudAdapter extends Adapter
      *
      * @return string
      */
-    protected function warpBr($format, $content)
+    protected function warpBr($format, $content, $needBr = true)
     {
-        return $this->br(
-            sprintf($format, $this->br($content))
-        );
+        return sprintf($format, $this->br($content, $needBr));
     }
 
     /**
@@ -53,7 +56,7 @@ abstract class PuyingcloudAdapter extends Adapter
             return sprintf('%s%s', $text, $this->c(sprintf('<LOGO%s>', $order)));
         }
 
-        return sprintf('%s%s', $this->c('<LOGOn>'), $text);
+        return sprintf('%s%s', $this->c('<LOGO1>'), $text);
     }
 
     /**
@@ -147,7 +150,7 @@ abstract class PuyingcloudAdapter extends Adapter
      */
     public function qrcode(string $text)
     {
-        return sprintf('<C><QR>%s<BR></QR><BR></C>', $text);
+        return sprintf('<C><QR>%s<BR></QR></C>', $text);
     }
 
     /**
@@ -213,14 +216,22 @@ abstract class PuyingcloudAdapter extends Adapter
         return $this->section($text);
     }
 
-    public function textMedium(string $text)
+    public function textMedium(string $text, $bold = false)
     {
-        return $this->section("<B>{$text}<BR></B>");
+        if ($bold) {
+            return parent::textLarge($text);
+        }
+
+        return $this->push("<L>{$text}<BR></L>");
     }
 
-    public function textLarge(string $text)
+    public function textLarge(string $text, $bold = false)
     {
-        return $this->push("<B>{$text}<BR></B>");
+        if ($bold) {
+            return parent::textLarge($text);
+        }
+
+        return $this->push("<L>{$text}<BR></L>");
     }
 
     public function division($division = null)
