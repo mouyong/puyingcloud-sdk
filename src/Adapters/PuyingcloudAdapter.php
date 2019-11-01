@@ -34,6 +34,7 @@ abstract class PuyingcloudAdapter extends Adapter
      * @param string $format
      * @param string $content
      *
+     * @param bool $needBr
      * @return string
      */
     protected function warpBr($format, $content, $needBr = true)
@@ -73,60 +74,65 @@ abstract class PuyingcloudAdapter extends Adapter
      * 居中放大.
      *
      * @param string $text
+     * @param bool $needBr
      *
      * @return string
      */
-    public function cb(string $text)
+    public function cb(string $text, $needBr = true)
     {
-        return $this->warpBr('<CB>%s</CB>', $text);
+        return $this->warpBr('<CB>%s</CB>', $text, $needBr);
     }
 
     /**
      * 放大一倍.
      *
      * @param string $text
+     * @param bool $needBr
      *
      * @return string
      */
-    public function b(string $text)
+    public function b(string $text, $needBr = true)
     {
-        return $this->warpBr('<B>%s</B>', $text);
+        return $this->warpBr('<B>%s</B>', $text, $needBr);
     }
 
     /**
      * 居中.
      *
      * @param string $text
+     * @param bool $needBr
      *
      * @return string
      */
-    public function c(string $text)
+    public function c(string $text, $needBr = true)
     {
-        return $this->warpBr('<C>%s</C>', $text);
+        return $this->warpBr('<C>%s</C>', $text, $needBr);
     }
 
     /**
      * 居中.
      *
      * @param string $text
+     * @param bool $needBr
      *
      * @return string
      */
-    public function center(string $text)
+    public function center(string $text, $needBr = true)
     {
-        return $this->c($text);
+        return $this->c($text, $needBr);
     }
 
     /**
      * 字体变高一倍.
      *
      * @param string $text
+     * @param bool $needBr
      *
      * @return string
      */
-    public function l(string $text)
+    public function l(string $text, $needBr = true)
     {
-        return $this->warpBr('<L>%s</L>', $text);
+        return $this->warpBr('<L>%s</L>', $text, $needBr);
     }
 
     /**
@@ -134,11 +140,12 @@ abstract class PuyingcloudAdapter extends Adapter
      *
      * @param string $text
      *
+     * @param bool $needBr
      * @return string
      */
-    public function w(string $text)
+    public function w(string $text, $needBr = true)
     {
-        return $this->warpBr('<W>%s</W>', $text);
+        return $this->warpBr('<W>%s</W>', $text, $needBr);
     }
 
     /**
@@ -157,28 +164,32 @@ abstract class PuyingcloudAdapter extends Adapter
      * 右对齐.
      *
      * @param string $text
+     * @param bool $needBr
      *
      * @return string
      */
-    public function right(string $text)
+    public function right(string $text, $needBr = true)
     {
-        return $this->warpBr('<RIGHT>%s</RIGHT>', $text);
+        return $this->warpBr('<RIGHT>%s</RIGHT>', $text, $needBr);
     }
 
     /**
      * 字体加粗.
      *
      * @param string $text
+     * @param bool $needBr
      *
      * @return string
      */
-    public function bold(string $text)
+    public function bold(string $text, $needBr = true)
     {
-        return $this->warpBr('<BOLD>%s</BOLD>', $text);
+        return $this->warpBr('<BOLD>%s</BOLD>', $text, $needBr);
     }
 
     /**
      * 结束内容排版.
+     *
+     * @param string $text
      *
      * @return string
      */
@@ -211,7 +222,7 @@ abstract class PuyingcloudAdapter extends Adapter
         return "<VO>{$text}<BR></VO>";
     }
 
-    public function textSmall(string $text)
+    public function textSmall(string $text, $bold = false)
     {
         return $this->section($text);
     }
@@ -219,7 +230,7 @@ abstract class PuyingcloudAdapter extends Adapter
     public function textMedium(string $text, $bold = false)
     {
         if ($bold) {
-            return parent::textLarge($text);
+            return $this->push("<B>{$text}<BR></B>");
         }
 
         return $this->push("<L>{$text}<BR></L>");
@@ -228,7 +239,7 @@ abstract class PuyingcloudAdapter extends Adapter
     public function textLarge(string $text, $bold = false)
     {
         if ($bold) {
-            return parent::textLarge($text);
+            return $this->push("<B>{$text}<BR></B>");
         }
 
         return $this->push("<L>{$text}<BR></L>");
@@ -245,13 +256,14 @@ abstract class PuyingcloudAdapter extends Adapter
      * 围绕文字.
      *
      * @param string $text
-     * @param int    $times
+     * @param int $times
      * @param string $around
      * @param string $size
+     * @param bool $bold
      *
      * @return $this
      */
-    public function around(string $text, $times = 1, $around = '·', $size = 'small')
+    public function around(string $text, $times = 1, $around = '·', $size = 'small', $bold = true)
     {
         $text = convert2utf8($text);
         $strlen = strlen($text);
@@ -268,6 +280,6 @@ abstract class PuyingcloudAdapter extends Adapter
 
         $method = 'text'.ucfirst($size);
 
-        return $this->{$method}($text);
+        return $this->{$method}($text, $bold);
     }
 }
