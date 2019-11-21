@@ -277,20 +277,25 @@ abstract class PuyingcloudAdapter extends Adapter
     public function around(string $text, $times = 1, $around = '·', $size = 'small', $needBr = true, $bold = true)
     {
         $text = convert2utf8($text);
-        $strlen = strlen($text);
+        $strWidth = mb_strwidth($text);
 
         // 左、右需要重复的字符串
-        // (小票宽度 - 字符串长度 - 2 字节空格) / 2
-        $halfAround = times($around, ($this->getByteLength($size, $bold) - $strlen) / 2);
+        // (小票宽度 - (字符串长度 + 2 字节空格)) / 2
+        $textWidth = $strWidth + 2;
+        $avaliableWidth = $this->getByteLength($size, $bold) - $textWidth;
 
-        $text = "{$halfAround} {$text} {$halfAround}";
+        $halfAround = times($around, $avaliableWidth / 2);
 
-        if (mb_strwidth($text) !== $this->getByteLength($size, $bold)) {
-            $text = $text.$around;
+        $newText = "{$halfAround} {$text} {$halfAround}";
+
+        // 将组合的字宽 = text 字宽 + 2 个空格 + 一半剩余 * 2 的长度
+        $newTextWidth = mb_strwidth($text) + 2 + strlen($halfAround) * 2;
+        if ($newTextWidth !== $this->getByteLength($size, $bold)) {
+            $newTextWidth = $newText.$around;
         }
 
         $method = 'text'.ucfirst($size);
 
-        return $this->{$method}($text, $needBr, $bold);
+        return $this->{$method}($newText, $needBr, $bold);
     }
 }
