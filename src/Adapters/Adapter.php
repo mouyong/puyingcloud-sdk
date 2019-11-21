@@ -162,7 +162,7 @@ abstract class Adapter
      */
     public function tableSmall($items, $needBr = true, $bold = false)
     {
-        return $this->table($items, 'small', $bold);
+        return $this->table($items, 'small', $needBr, $bold);
     }
 
     /**
@@ -174,7 +174,7 @@ abstract class Adapter
      */
     public function tableMedium($items, $needBr = true, $bold = false)
     {
-        return $this->table($items, 'medium', $bold);
+        return $this->table($items, 'medium', $needBr, $bold);
     }
 
     /**
@@ -184,7 +184,7 @@ abstract class Adapter
      */
     public function tableLarge($items, $needBr = true, $bold = false)
     {
-        return $this->table($items, 'large', $bold);
+        return $this->table($items, 'large', $needBr, $bold);
     }
 
     /**
