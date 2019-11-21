@@ -82,12 +82,12 @@ abstract class Adapter
      *
      * @return mixed
      */
-    public function table($items, $size = 'small', $bold = false)
+    public function table($items, $size = 'small', $needBr = true, $bold = false)
     {
         $method = ['small' => 'textSmall', 'medium' => 'textMedium', 'large' => 'textLarge'][$size];
 
         foreach ($items as $key => $value) {
-            $this->{$method}($this->calcTableSpace($value, $size, $bold), $bold);
+            $this->{$method}($this->calcTableSpace($value, $size, $bold), $needBr, $bold);
         }
 
         return $this;
@@ -160,7 +160,7 @@ abstract class Adapter
      *
      * @return mixed
      */
-    public function tableSmall($items, $bold = false)
+    public function tableSmall($items, $needBr = true, $bold = false)
     {
         return $this->table($items, 'small', $bold);
     }
@@ -172,7 +172,7 @@ abstract class Adapter
      *
      * @return mixed
      */
-    public function tableMedium($items, $bold = false)
+    public function tableMedium($items, $needBr = true, $bold = false)
     {
         return $this->table($items, 'medium', $bold);
     }
@@ -182,7 +182,7 @@ abstract class Adapter
      *
      * @return mixed
      */
-    public function tableLarge($items, $bold = false)
+    public function tableLarge($items, $needBr = true, $bold = false)
     {
         return $this->table($items, 'large', $bold);
     }
