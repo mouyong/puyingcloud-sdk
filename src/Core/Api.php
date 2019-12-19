@@ -105,7 +105,14 @@ class Api extends AbstractAPI
             $value = null,
             RequestException $exception = null
         ) {
-            $this->app['logger']->debug('action: '.$this->action(), $this->data());
+            $this->app['logger']->debug('retry middleware: request action: '.$this->action(), [
+                'data' => $this->data(),
+                'request-headers' => $request->getHeaders(),
+                'request-body' => $request->getBody(),
+                'response-headers' => $response->getHeaders(),
+                'response-body' => $response->getBody(),
+            ]);
+            $this->app['logger']->debug('will retry action: '.$this->action());
 
             // 超过最大重试次数，不再重试
             if ($retries > static::MAX_RETRIES) {
