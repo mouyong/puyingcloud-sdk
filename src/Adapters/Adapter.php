@@ -246,12 +246,13 @@ abstract class Adapter
     {
         $contentArr = [];
         foreach ($this->content as $text) {
-            if ($text !== '' && mb_strpos($text, $this->glue) !== false) {
+            if ('' !== $text && false !== mb_strpos($text, $this->glue)) {
                 $contentArr[] = $text;
             } else {
                 $contentArr[] = $text.$this->glue;
             }
         }
+
         return implode('', $contentArr);
     }
 
