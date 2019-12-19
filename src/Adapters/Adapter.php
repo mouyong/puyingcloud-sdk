@@ -244,7 +244,15 @@ abstract class Adapter
      */
     public function render()
     {
-        return implode($this->glue, $this->content);
+        $contentArr = [];
+        foreach ($this->content as $text) {
+            if ($text !== '' && mb_strpos($text, $this->glue) !== false) {
+                $contentArr[] = $text;
+            } else {
+                $contentArr[] = $text.$this->glue;
+            }
+        }
+        return implode('', $contentArr);
     }
 
     /**
