@@ -72,6 +72,27 @@ class AccessToken extends AbstractAccessToken
         return $this->result;
     }
 
+    public function getToken($forceRefresh = false)
+    {
+        $cached = $this->getCache()->fetch($this->getCacheKey()) ?: $this->token;
+
+        if ($forceRefresh || empty($cached)) {
+
+            $result = $this->getTokenFromServer();
+
+            $this->checkTokenResponse($result);
+
+            $this->setToken(
+                $token = $result[$this->tokenJsonKey],
+                5600
+            );
+
+            return $token;
+        }
+
+        return $cached;
+    }
+
     public function getAction()
     {
         return $this->action;
