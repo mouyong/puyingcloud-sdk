@@ -77,7 +77,6 @@ class AccessToken extends AbstractAccessToken
         $cached = $this->getCache()->fetch($this->getCacheKey()) ?: $this->token;
 
         if ($forceRefresh || empty($cached)) {
-
             $result = $this->getTokenFromServer();
 
             $this->checkTokenResponse($result);
