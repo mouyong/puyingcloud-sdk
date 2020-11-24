@@ -71,10 +71,10 @@ class PuyingCloudSdk extends Foundation
             $logger->pushHandler($this['config']['log']['handler']);
         } elseif ($logFile = ($this['config']['log']['file'] ?? null)) {
             $logger->pushHandler(new StreamHandler(
-                    $logFile,
-                    $this['config']['log']['level'] ?? Logger::WARNING,
-                    true,
-                    $this['config']['log']['permission'] ?? null
+                $logFile,
+                $this['config']['log']['level'] ?? Logger::WARNING,
+                true,
+                $this['config']['log']['permission'] ?? null
             ));
         }
 
