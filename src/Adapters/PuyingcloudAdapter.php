@@ -61,8 +61,6 @@ abstract class PuyingcloudAdapter extends Adapter
     }
 
     /**
-     * @param string $text
-     *
      * @return $this
      */
     public function cash(string $text)
@@ -73,8 +71,7 @@ abstract class PuyingcloudAdapter extends Adapter
     /**
      * 居中放大.
      *
-     * @param string $text
-     * @param bool   $needBr
+     * @param bool $needBr
      *
      * @return string
      */
@@ -86,8 +83,7 @@ abstract class PuyingcloudAdapter extends Adapter
     /**
      * 放大一倍.
      *
-     * @param string $text
-     * @param bool   $needBr
+     * @param bool $needBr
      *
      * @return string
      */
@@ -99,8 +95,7 @@ abstract class PuyingcloudAdapter extends Adapter
     /**
      * 居中.
      *
-     * @param string $text
-     * @param bool   $needBr
+     * @param bool $needBr
      *
      * @return string
      */
@@ -112,8 +107,7 @@ abstract class PuyingcloudAdapter extends Adapter
     /**
      * 居中.
      *
-     * @param string $text
-     * @param bool   $needBr
+     * @param bool $needBr
      *
      * @return string
      */
@@ -125,8 +119,7 @@ abstract class PuyingcloudAdapter extends Adapter
     /**
      * 字体变高一倍.
      *
-     * @param string $text
-     * @param bool   $needBr
+     * @param bool $needBr
      *
      * @return string
      */
@@ -138,8 +131,7 @@ abstract class PuyingcloudAdapter extends Adapter
     /**
      * 字体变宽一倍.
      *
-     * @param string $text
-     * @param bool   $needBr
+     * @param bool $needBr
      *
      * @return string
      */
@@ -151,8 +143,6 @@ abstract class PuyingcloudAdapter extends Adapter
     /**
      * 居中二维码.
      *
-     * @param string $text
-     *
      * @return string
      */
     public function qrcode(string $text)
@@ -163,8 +153,7 @@ abstract class PuyingcloudAdapter extends Adapter
     /**
      * 右对齐.
      *
-     * @param string $text
-     * @param bool   $needBr
+     * @param bool $needBr
      *
      * @return string
      */
@@ -176,8 +165,7 @@ abstract class PuyingcloudAdapter extends Adapter
     /**
      * 字体加粗.
      *
-     * @param string $text
-     * @param bool   $needBr
+     * @param bool $needBr
      *
      * @return string
      */
@@ -212,8 +200,6 @@ abstract class PuyingcloudAdapter extends Adapter
 
     /**
      * 语音播报.
-     *
-     * @param string $text
      *
      * @return string
      */
@@ -265,7 +251,6 @@ abstract class PuyingcloudAdapter extends Adapter
     /**
      * 围绕文字.
      *
-     * @param string $text
      * @param int    $times
      * @param string $around
      * @param string $size

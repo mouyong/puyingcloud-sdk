@@ -30,7 +30,7 @@ class PrinterManage extends Api
      *
      * @param array $printer = ['sn' => $sn, 'key' => $key, 'alias' => $alias]
      *
-     * @return array|mixed|null|\Psr\Http\Message\ResponseInterface
+     * @return array|mixed|\Psr\Http\Message\ResponseInterface|null
      */
     public function addOne(array $printer)
     {
@@ -50,7 +50,7 @@ class PrinterManage extends Api
      *                        ...
      *                        ]
      *
-     * @return array|mixed|null|\Psr\Http\Message\ResponseInterface
+     * @return array|mixed|\Psr\Http\Message\ResponseInterface|null
      */
     public function add($printers = [])
     {
