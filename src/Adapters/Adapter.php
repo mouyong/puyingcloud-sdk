@@ -46,8 +46,7 @@ abstract class Adapter
     /**
      * 小号字体.
      *
-     * @param string $text
-     * @param bool   $bold
+     * @param bool $bold
      *
      * @return mixed
      */
@@ -56,9 +55,8 @@ abstract class Adapter
     /**
      * 中号字体.
      *
-     * @param string $text
-     * @param bool   $needBr
-     * @param bool   $bold
+     * @param bool $needBr
+     * @param bool $bold
      *
      * @return mixed
      */
@@ -66,8 +64,6 @@ abstract class Adapter
 
     /**
      * 大号字体.
-     *
-     * @param string $text
      *
      * @return mixed
      */
@@ -96,7 +92,6 @@ abstract class Adapter
     /**
      * 表格空白补全.
      *
-     * @param array  $row
      * @param string $size
      * @param bool   $bold
      *
@@ -197,7 +192,6 @@ abstract class Adapter
     /**
      * 两边围绕.
      *
-     * @param string $text
      * @param int    $times
      * @param string $around
      * @param string $size
@@ -208,8 +202,6 @@ abstract class Adapter
 
     /**
      * 转义.
-     *
-     * @param string $text
      *
      * @return mixed
      */
@@ -223,8 +215,6 @@ abstract class Adapter
     }
 
     /**
-     * @param string $text
-     *
      * @return $this
      */
     public function push(string $text)
